@@ -1,0 +1,80 @@
+#!/bin/sh
+# prepare conf file
+BASE=/tmp/lcd4linux_base.conf
+FILE=/tmp/lcd4linux.conf
+
+cp $BASE $FILE
+echo "Layout Default {" >> $FILE
+
+stringContain() { [ -z "${2##*$1*}" ]; }
+
+echo "Content-type: text/html"
+echo ""
+
+
+echo "Row1 { " >> $FILE
+if stringContain 'CPU' ${QUERY_STRING}; then 
+	echo "Col1 'CPU'" >> $FILE;
+else 
+	echo no; 
+fi
+if stringContain 'RAM' ${QUERY_STRING}; then 
+        echo "Col20 'RAM'" >> $FILE;
+else 
+        echo no; 
+fi
+echo "}" >> $FILE
+
+
+echo "Row2 { " >> $FILE
+if stringContain 'Pidgin' ${QUERY_STRING}; then 
+        echo "Col1 'Pidgin'" >> $FILE;
+else 
+        echo no; 
+fi
+if stringContain 'OS' ${QUERY_STRING}; then 
+        echo "Col20 'OS'" >> $FILE;
+else 
+        echo no; 
+fi
+echo "}" >> $FILE
+
+echo "Row3 { " >> $FILE
+if stringContain 'CPUinfo' ${QUERY_STRING}; then 
+        echo "Col1 'CPUinfo'" >> $FILE;
+else 
+        echo no; 
+fi
+if stringContain 'Busy' ${QUERY_STRING}; then 
+        echo "Col20 'Busy'" >> $FILE;
+else 
+        echo no; 
+fi
+echo "}" >> $FILE
+
+
+echo "Row4 { " >> $FILE
+if stringContain 'Load' ${QUERY_STRING}; then 
+        echo "Col1 'Load'" >> $FILE;
+else 
+        echo no; 
+fi
+if stringContain 'BusyBar' ${QUERY_STRING}; then 
+        echo "Col20 'BusyBar'" >> $FILE;
+else 
+        echo no; 
+fi
+echo "}" >> $FILE
+
+
+
+# fin de ifchier de conf
+echo "
+    }
+Display 'Curses'
+Layout  'Default'
+" >> $FILE
+#cp lcd4linux.conf /etc/lcd4linux.conf
+#kill -9 $(cat /tmp/pid)
+service lcdalexis restart
+echo "Configuration mise à jour"

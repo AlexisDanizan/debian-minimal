@@ -2,29 +2,17 @@
 echo "Change password root: "
 passwd
 #chsh -s /bin/ash
-# Le noyau
-apt-get install initramfs-tools grub2
-# selinux=0 console=tty1 quiet
-nano /etc/default/grub
-nano /etc/init.d/test
 
-update-rc test  defaults
-chvt
-
-
-dpkg -i linux-headers-4.9.6_3.alexis_amd64.deb
-dpkg -i linux-image-4.9.6_3.alexis_amd64.deb
-#apt-get install grub2
-#apt-get remove linux-image-amd64
-
+#/etc/fstab
 # BLKID
 blkid
 echo "Entre l\'UUID de la clé: "
 read BID
 echo "
 proc /proc proc defaults
-UUID=$BID    /    ext4 errors=remount-ro 0 1
-" >> /etc/fstab
+UUID=$BID    /    ext4 ro,errors=remount-ro 0 1
+tmpfs /tmp tmpfs defaults,noatime,nosuid,nodev,noexec,mode=1777,size=5M 0 0
+" > /etc/fstab
 
 # Hostname
 echo "Hostname: "
@@ -39,26 +27,48 @@ iface lo inet loopback
 allow-hotplug eth0
 auto eth0
 iface eth0 inet dhcp
-"
-> /etc/network/interfaces
+" > /etc/network/interfaces
 
 #Clavier
 apt install console-data
+
+# Le noyau
+#apt-get install initramfs-tools grub2
+#echo "selinux=0 console=tty1 quiet" >> /etc/default/grub
+#nano /etc/default/grub
+#dpkg -i linux-headers-4.9.6_3.alexis_amd64.deb
+#dpkg -i linux-image-4.9.6_3.alexis_amd64.deb
+
+# Le script de boot
+nano /etc/init.d/lcdalexis
+insserv lcdalexis
+
+#lcd4linux
+apt-get install lcd4linux
+
+
+
+
+
+
+
+
+
 #apt install locales 
 #locale-gen "fr_FR.utf8"
 #dpkg-reconfigure locales
 
 #./busybox-x86_64 --install /usr/bin
 #rcconf
-systemctl -l
-systemctl disable cron.service
-systemctl disable rsyslog.service
-apt list --installed
-apt-get remove --purge tasksel wget vim-common traceroute perl aptitude xdg-user-dirs iptables iproute2
-apt-get remove --purge net-tools netcat-traditional whiptail
-apt-get clean all
+#systemctl -l
+#systemctl disable cron.service
+#systemctl disable rsyslog.service
+#apt list --installed
+#apt-get remove --purge tasksel wget vim-common traceroute perl aptitude xdg-user-dirs iptables iproute2
+#apt-get remove --purge net-tools netcat-traditional whiptail
+#apt-get clean all
 
-apt-get --purge -f remove nano grep gzip sed less hostname login logrotate cron rsyslog passwd
+#apt-get --purge -f remove nano grep gzip sed less hostname login logrotate cron rsyslog passwd
 
 #rm -r /var/lib/* /var/cache/*
 # pas dpkg
