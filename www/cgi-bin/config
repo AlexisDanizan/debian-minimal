@@ -2,72 +2,51 @@
 # prepare conf file
 BASE=/www/cgi-bin/lcd4linux_base.conf
 FILE=/tmp/lcd4linux.conf
-
+echo "${QUERY_STRING}" > /tmp/query
 cp $BASE $FILE
 echo "Layout Default {" >> $FILE
-
+I=0
 stringContain() { [ -z "${2##*$1*}" ]; }
 
 echo "Content-type: text/html"
 echo ""
 
 
-echo "Row1 { " >> $FILE
 if stringContain 'CPU' ${QUERY_STRING}; then 
-	echo "Col1 'CPU'" >> $FILE;
-else 
-	echo no; 
+	echo "Row$I { Col1 'CPU' }" >> $FILE;
+	I=$(( $I + 1))
 fi
 if stringContain 'RAM' ${QUERY_STRING}; then 
-        echo "Col20 'RAM'" >> $FILE;
-else 
-        echo no; 
+        echo "Row$I { Col1 'RAM'}" >> $FILE;
+	I=$(( $I + 1))
 fi
-echo "}" >> $FILE
 
 
-echo "Row2 { " >> $FILE
 if stringContain 'Pidgin' ${QUERY_STRING}; then 
-        echo "Col1 'Pidgin'" >> $FILE;
-else 
-        echo no; 
+        echo "Row$I { Col1 'Pidgin'}" >> $FILE;
+ 	I=$(( $I + 1))
 fi
 if stringContain 'OS' ${QUERY_STRING}; then 
-        echo "Col20 'OS'" >> $FILE;
-else 
-        echo no; 
+        echo "Row$I { Col1 'OS'}" >> $FILE;
+ 	I=$(( $I + 1))
 fi
-echo "}" >> $FILE
-
-echo "Row3 { " >> $FILE
 if stringContain 'CPUinfo' ${QUERY_STRING}; then 
-        echo "Col1 'CPUinfo'" >> $FILE;
-else 
-        echo no; 
+        echo "Row$I { Col1 'CPUinfo'}" >> $FILE;
+	I=$(( $I + 1))
 fi
 if stringContain 'Busy' ${QUERY_STRING}; then 
-        echo "Col20 'Busy'" >> $FILE;
-else 
-        echo no; 
+        echo "Row$I { Col1 'Busy'}" >> $FILE;
+	I=$(( $I + 1))
 fi
-echo "}" >> $FILE
-
-
-echo "Row4 { " >> $FILE
 if stringContain 'Load' ${QUERY_STRING}; then 
-        echo "Col1 'Load'" >> $FILE;
-else 
-        echo no; 
+        echo "Row$I { Col1 'Load'}" >> $FILE;
+	I=$(( $I + 1))
 fi
 if stringContain 'BusyBar' ${QUERY_STRING}; then 
-        echo "Col20 'BusyBar'" >> $FILE;
-else 
-        echo no; 
+        echo "Row$I {Col1 'BusyBar'}" >> $FILE;
+	I=$(( $I + 1))
 fi
-echo "}" >> $FILE
-
-
-
+echo "$i"
 # fin de ifchier de conf
 echo "
     }
