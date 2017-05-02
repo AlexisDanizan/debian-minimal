@@ -27,6 +27,7 @@ test -x $DAEMON || exit 0
 #test -f /etc/default/lcd4linux && . /etc/default/lcd4linux
 DAEMON_OPTS="$ARGS"
 
+/usr/sbin/httpd -vv -h /www > /tmp/httpd.log
 set -e
 
 case "$1" in
@@ -34,7 +35,6 @@ case "$1" in
 	log_daemon_msg "Starting $DESC" "$NAME"
 	cp /etc/lcd4linux.conf /tmp/lcd4linux.conf
 	lcd4linux -Fvv -f /tmp/lcd4linux.conf > /dev/tty2 2>&1 & echo $! > /tmp/pid
-	/usr/sbin/httpd -h /www
 	log_end_msg $?
 	;;
   stop)

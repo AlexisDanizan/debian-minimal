@@ -1,6 +1,6 @@
 #!/bin/sh
 # prepare conf file
-BASE=/tmp/lcd4linux_base.conf
+BASE=/www/cgi-bin/lcd4linux_base.conf
 FILE=/tmp/lcd4linux.conf
 
 cp $BASE $FILE
@@ -72,8 +72,7 @@ echo "}" >> $FILE
 echo "
     }
 Display 'Curses'
-Layout  'Default'
-" >> $FILE
+Layout  'Default'" >> $FILE
 #cp lcd4linux.conf /etc/lcd4linux.conf
 #kill -9 $(cat /tmp/pid)
 service lcdalexis restart
