@@ -15,6 +15,10 @@ cp -R ../www/* $DIR/www
 # Le script de boot
 cp lcdalexis $DIR/etc/init.d/lcdalexis
 chmod +x $DIR/etc/init.d/lcdalexis
+
+cp httpd $DIR/etc/init.d/httpd
+chmod +x $DIR/etc/init.d/httpd
+
 #Le kernel
 #cp ./kernel/linux-headers-4.9.6_3.alexis_amd64.deb $DIR
 #cp ./kernel/linux-image-4.9.6_3.alexis_amd64.deb $DIR

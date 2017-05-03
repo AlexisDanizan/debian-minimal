@@ -1,0 +1,14 @@
+[Unit]
+Description=lcd4linux on tty2
+
+[Service]
+Type=simple
+ExecStart=/usr/sbin/lcd4linux -Fvv -f /tmp/lcd4linux.conf
+StandardInput=tty
+StandardOutput=tty
+TTYPath=/dev/tty2
+TTYReset=yes
+TTYVHangup=yes
+
+[Install]
+WantedBy=default.target

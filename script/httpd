@@ -1,7 +1,7 @@
 #! /bin/sh
 
 ### BEGIN INIT INFO
-# Provides:          lcdalexis
+# Provides:          httpd
 # Required-Start:    $remote_fs
 # Required-Stop:     $remote_fs
 # Should-Start:      $syslog
@@ -15,22 +15,13 @@
 ### END INIT INFO
 
 PATH=/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin
-DAEMON=/usr/sbin/lcd4linux
-NAME=lcdalexis
-DESC=lcdalexis
+DAEMON=/usr/sbin/httpd
+NAME=httpd
+DESC=httpd
 
-#export DISPLAY=:0
 . /lib/lsb/init-functions
 
 test -x $DAEMON || exit 0
-if [ ! -r /tmp/lcd4linux.conf ]; then
-    cp /etc/lcd4linux.conf /tmp/lcd4linux.conf;
-fi
-#text -f /tmp/lcd4linux.conf || cp /etc/lcd4linux.conf /tmp/lcd4linux.conf
-#test -f /tmp/lcd4linux.conf || echo "no" && echo "yes"
-#test -f /etc/lcd4linux.conf || exit 0
-
-#test -f /etc/default/lcd4linux && . /etc/default/lcd4linux
 DAEMON_OPTS="$ARGS"
 
 set -e
@@ -38,13 +29,13 @@ set -e
 case "$1" in
   start)
 	log_daemon_msg "Starting $DESC" "$NAME"
-	export DISPLAY=:0; 
-	lcd4linux -Fvv -f /tmp/lcd4linux.conf > /dev/tty1 2>/tmp/error_lcd
+	/usr/sbin/httpd -vv -h /www > /tmp/httpd.log 2>&1 &
+	log_daemon_msg "Starting $DESC" "$NAME"
 	log_end_msg $?
 	;;
   stop)
 	log_daemon_msg "Stopping $DESC" "$NAME" 
-	pgrep -f lcd | xargs kill -2
+	pgrep -f httpd | xargs kill
 	log_end_msg $?
 	;;
   restart|force-reload)

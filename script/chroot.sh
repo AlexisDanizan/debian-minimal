@@ -2,7 +2,8 @@
 echo "Change password root: "
 passwd
 #chsh -s /bin/ash
-
+#nano /lib/systemd/system/lcddanizan.service
+systemctl enable lcddanizan
 #/etc/fstab
 # BLKID
 blkid
@@ -42,6 +43,9 @@ apt install console-data
 # Le script de boot
 nano /etc/init.d/lcdalexis
 insserv lcdalexis
+
+nano /etc/init.d/httpd
+insserv httpd
 
 #lcd4linux
 apt-get install lcd4linux
