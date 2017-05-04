@@ -32,25 +32,25 @@ iface eth0 inet dhcp
 
 #Clavier
 apt install console-data
-
+# personnalisation
+echo "Alexis Danizan Debian minimal full fonctionnal (JESSIE/minimal Kernel)
+	\n \l
+	WELCOME BRO !" > /etc/issue
 # Le noyau
-#apt-get install initramfs-tools grub2
-#echo "selinux=0 console=tty1 quiet" >> /etc/default/grub
-#nano /etc/default/grub
-#dpkg -i linux-headers-4.9.6_3.alexis_amd64.deb
-#dpkg -i linux-image-4.9.6_3.alexis_amd64.deb
+apt-get install initramfs-tools grub2
+echo "selinux=0 console=tty1 quiet" >> /etc/default/grub
+nano /etc/default/grub
+dpkg -i linux-headers-4.9.6_3.alexis_amd64.deb
+dpkg -i linux-image-4.9.6_3.alexis_amd64.deb
 
 # Le script de boot
-nano /etc/init.d/lcdalexis
-insserv lcdalexis
-
 nano /etc/init.d/httpd
 insserv httpd
 
 #lcd4linux
 apt-get install lcd4linux
 
-
+./clean.sh
 
 
 
