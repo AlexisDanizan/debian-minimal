@@ -6,6 +6,7 @@ mkdir -p $DIR
 echo "$USB $DIR ext4 defaults 0 0" >> /etc/fstab
 umount $USB
 mount $USB
+# deboostrap
 debootstrap stable $DIR http://deb.debian.org/debian/
 mount -t proc none $DIR/proc
 mount -o bind /dev $DIR/dev
@@ -28,10 +29,9 @@ cp ./chroot.sh $DIR
 cp ./clean.sh $DIR
 cp ./busybox-x86_64 $DIR
 chmod +x $DIR/chroot.sh $DIR/clean.sh $DIR/busybox-x86_64
-#chroot $DIR /bin/bash
 chroot $DIR  ./chroot.sh
-#chroot $DIR /bin/bash
 sleep 5
+cp ./lcd4linux.conf $DIR/etc/lcd4linux.conf
 umount $DIR/{dev,proc} ; umount $DIR
 #delete last line fstabe
 nano /etc/fstab

@@ -20,7 +20,7 @@ NAME=httpd
 DESC=httpd
 
 . /lib/lsb/init-functions
-
+cp /etc/lcd4linux.conf /tmp/lcd4linux.conf
 test -x $DAEMON || exit 0
 DAEMON_OPTS="$ARGS"
 

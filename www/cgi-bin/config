@@ -17,6 +17,7 @@ echo ""
 if stringContain 'CPU' ${QUERY_STRING}; then 
 	echo "Row$I { 
 			Col1 'CPU' 
+			Col20 'CPUinfo'
 		}" >> $FILE;
 	I=$(( $I + 1))
 fi
@@ -25,12 +26,6 @@ if stringContain 'RAM' ${QUERY_STRING}; then
 		Col1 'RAM'
 		}" >> $FILE;
 	I=$(( $I + 1))
-fi
-if stringContain 'Pidgin' ${QUERY_STRING}; then 
-        echo "Row$I { 
-		Col1 'Pidgin'
-		}" >> $FILE;
- 	I=$(( $I + 1))
 fi
 if stringContain 'OS' ${QUERY_STRING}; then 
         echo "Row$I { 
@@ -47,21 +42,45 @@ fi
 if stringContain 'Busy' ${QUERY_STRING}; then 
         echo "Row$I { 
 		Col1 'Busy'
+		Col20 'BusyBar'
 		}" >> $FILE;
 	I=$(( $I + 1))
 fi
 if stringContain 'Load' ${QUERY_STRING}; then 
         echo "Row$I { 
 		Col1 'Load'
+		Col20 'LoadBar'
 		}" >> $FILE;
 	I=$(( $I + 1))
 fi
-if stringContain 'BusyBar' ${QUERY_STRING}; then 
+if stringContain 'Disk' ${QUERY_STRING}; then 
         echo "Row$I {
-		Col1 'BusyBar'
+		Col1 'Disk'
+		Col20 'DiskBar'
 		}" >> $FILE;
 	I=$(( $I + 1))
 fi
+if stringContain 'Eth0' ${QUERY_STRING}; then 
+        echo "Row$I {
+                Col1 'Eth0'
+                Col1 'Eth0Bar'
+                }" >> $FILE;
+        I=$(( $I + 1))
+fi
+if stringContain 'Temp' ${QUERY_STRING}; then 
+        echo "Row$I {
+                Col1 'Temp'
+                Col1 'TempBar'
+                }" >> $FILE;
+        I=$(( $I + 1))
+fi
+if stringContain 'Uptime' ${QUERY_STRING}; then 
+        echo "Row$I {
+                Col1 'Uptime'
+                }" >> $FILE;
+        I=$(( $I + 1))
+fi
+
 echo "$I"
 # fin de ifchier de conf
 echo "
@@ -72,6 +91,6 @@ chmod 600 $FILE
 chown root.root $FILE
 #cp lcd4linux.conf /etc/lcd4linux.conf
 #kill -9 $(cat /tmp/pid)
-systemctl restart lcddanizan
+systemctl restart lcddanizan.service
 #service lcdalexis start
 echo "Configuration mise à jour"

@@ -1,8 +1,10 @@
 [Unit]
-Description=lcd4linux on tty2
+Description=lcd4linux on tty1
+After=default.target
 
 [Service]
 Type=simple
+ExecStartPre=test -e /tmp/lcd4linux.conf || cp /etc/lcd4linux.conf /tmp/lcd4linux.conf
 ExecStart=/usr/sbin/lcd4linux -Fvv -f /tmp/lcd4linux.conf
 StandardInput=tty
 StandardOutput=tty

@@ -25,7 +25,9 @@ cp ./busybox-x86_64 $DIR
 chmod +x $DIR/chroot.sh $DIR/clean.sh $DIR/busybox-x86_64
 chroot $DIR /bin/bash
 sleep 5
+# fichier de config par défaut
+cp ./lcd4linux.conf $DIR/etc/lcd4linux.conf
 umount $DIR/{dev,proc} ; umount $DIR
-#delete last line fstabe
+#delete last line fstab
 nano /etc/fstab
 echo "Finish install"
